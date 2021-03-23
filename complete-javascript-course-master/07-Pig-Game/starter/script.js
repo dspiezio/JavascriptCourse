@@ -26,22 +26,26 @@ diceImage.classList.add('hidden');
 let currentScore = 0;
 let activePlayer = 0;
 const scores = [0, 0];
+let gameOver = false;
 
 function rollDice() {
-  diceImage.classList.remove('hidden');
-  let rolledDice = Math.floor(Math.random() * 6) + 1;
-  diceImage.src = `dice-${rolledDice}.png`;
-  if (rolledDice !== 1) {
-    currentScore += rolledDice;
-    document.getElementById(
-      `current--${activePlayer}`
-    ).textContent = currentScore;
-  } else {
-    document.getElementById(`current--${activePlayer}`).textContent = 0;
-    activePlayer = activePlayer === 0 ? 1 : 0;
-    currentScore = 0;
-    player0.classList.toggle('player--active');
-    player1.classList.toggle('player--active');
+  // if game isnt over roll dice
+  if (!gameOver) {
+    diceImage.classList.remove('hidden');
+    let rolledDice = Math.floor(Math.random() * 6) + 1;
+    diceImage.src = `dice-${rolledDice}.png`;
+    // if a 1 is rolled end player turn and lose all current score
+    if (rolledDice !== 1) {
+      currentScore += rolledDice;
+      document.getElementById(
+        `current--${activePlayer}`
+      ).textContent = currentScore;
+    } else {
+      document.getElementById(`current--${activePlayer}`).textContent = 0;
+      activePlayer = activePlayer === 0 ? 1 : 0;
+      currentScore = 0;
+      togglePlayer();
+    }
   }
 }
 
@@ -53,20 +57,34 @@ function newGame() {
   score1.textContent = 0;
   currentScore = 0;
   activePlayer = 0;
-  //   togglePlayer();
+  gameOver = false;
+  player0.classList.remove('player--winner');
+  player1.classList.remove('player--winner');
+  player0.classList.add('player--active');
+  player1.classList.remove('player--active');
   scores[0] = 0;
   scores[1] = 0;
 }
 
 function holdDice() {
-  scores[activePlayer] += currentScore;
-  if (scores[activePlayer] <= 100) {
-    switchPlayer();
-    activePlayer = activePlayer === 0 ? 1 : 0;
-    togglePlayer();
-  } else {
-    switchPlayer();
-    console.log(`Player ${activePlayer + 1} wins!`);
+  // if the game isnt over hold the dice and tally score
+  if (!gameOver) {
+    scores[activePlayer] += currentScore;
+    if (scores[activePlayer] < 100) {
+      switchPlayer();
+      activePlayer = activePlayer === 0 ? 1 : 0;
+      togglePlayer();
+    } else {
+      switchPlayer();
+      diceImage.classList.add('hidden');
+      gameOver = true;
+      document
+        .querySelector(`.player--${activePlayer}`)
+        .classList.add('player--winner');
+      document
+        .querySelector(`.player--${activePlayer}`)
+        .classList.remove('player--active');
+    }
   }
 }
 

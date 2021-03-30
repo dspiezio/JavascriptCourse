@@ -86,6 +86,6 @@ for (const [time, event] of gameEvents) {
 
 // 4 correct
 for (const [min, event] of gameEvents) {
-  const half = min => (45 ? 'FIRST' : 'SECOND');
+  const half = min <= 45 ? 'FIRST' : 'SECOND';
   console.log(`[${half} HALF] ${min}: ${event}`);
 }

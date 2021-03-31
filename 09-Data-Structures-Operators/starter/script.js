@@ -4,57 +4,206 @@
 const flights =
   '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
 
-const weekdays = ['mon', 'tue', 'wed', 'thurs', 'fri', 'sat', 'sun'];
-const openingHours = {
-  [weekdays[3]]: {
-    open: 12,
-    close: 22,
-  },
-  fri: {
-    open: 11,
-    close: 23,
-  },
-  sat: {
-    open: 0, // Open 24 hours
-    close: 24,
-  },
-};
+const getCode = str => str.toUpperCase().slice(0, 3);
 
-// Data needed for first part of the section
-const restaurant = {
-  name: 'Classico Italiano',
-  location: 'Via Angelo Tavanti 23, Firenze, Italy',
-  categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
-  starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
-  mainMenu: ['Pizza', 'Pasta', 'Risotto'],
-  openingHours,
-  order: function (starterIndex, mainIndex) {
-    return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
-  },
+for (const flight of flights.split(`+`)) {
+  const [status, from, to, time] = flight.split(`;`);
+  const output = `${
+    status.startsWith(`_Delay`) ? `🔴` : ` `
+  } ${status.replaceAll(`_`, ``)} from ${getCode(from)} to ${getCode(
+    to
+  )} (${time.replace(`:`, `h`)})`.padStart(50);
+  console.log(output);
+}
 
-  orderDelivery({
-    starterIndex = 1,
-    mainIndex = 0,
-    time = 'no specific time',
-    address,
-  }) {
-    console.log(
-      `Order received! They have ordered ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} and want it delivered to ${address} at ${time}.`
-    );
-  },
+// console.log(...`a+very+nice+string`.split('+'));
+// console.log(`Dominic Spiezio`.split(' '));
+// const [firstName, Lastname] = `Dominic Spiezio`.split(' ');
+// console.log(firstName, Lastname);
+// const newName = ['Mr.', firstName, Lastname.toUpperCase()].join(` `);
 
-  orderPasta(ing1, ing2, ing3) {
-    console.log(
-      `Here is your delicious pastas with ${ing1}, ${ing2}, and ${ing3}`
-    );
-  },
+// console.log(newName);
 
-  orderPizza(mainIngredient, ...otherIngredients) {
-    console.log(mainIngredient);
-    console.log(...otherIngredients);
-  },
-};
+// const passenger = `jessica ann smith davis`;
 
+// const capitalizeName = function (name) {
+//   const names = name.split(` `);
+//   const namesUpper = [];
+//   for (const word of names) {
+//     namesUpper.push(word[0].toUpperCase() + word.slice(1));
+//   }
+//   console.log(namesUpper.join(` `));
+// };
+
+// capitalizeName(passenger);
+
+// const message = `Go to gate 23!`;
+// console.log(message.padStart(25, '+'));
+// console.log(`Dominic`.padStart(25, '+').padEnd(35, '+'));
+
+// const maskCredit = function (num) {
+//   const str = String(num);
+//   const last = str.slice(-4);
+//   return last.padStart(str.length, '*');
+// };
+
+// console.log(maskCredit(4853695471259845));
+
+// const message2 = 'Bad Weather... All Departures Delayed... ';
+// console.log(message2.repeat(6));
+
+// const planesInLine = function (n) {
+//   console.log(`There are ${n} planes in line ${`✈`.repeat(n)}`);
+// };
+
+// planesInLine(5);
+// const weekdays = ['mon', 'tue', 'wed', 'thurs', 'fri', 'sat', 'sun'];
+// const openingHours = {
+//   [weekdays[3]]: {
+//     open: 12,
+//     close: 22,
+//   },
+//   fri: {
+//     open: 11,
+//     close: 23,
+//   },
+//   sat: {
+//     open: 0, // Open 24 hours
+//     close: 24,
+//   },
+// };
+
+// // Data needed for first part of the section
+// const restaurant = {
+//   name: 'Classico Italiano',
+//   location: 'Via Angelo Tavanti 23, Firenze, Italy',
+//   categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
+//   starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
+//   mainMenu: ['Pizza', 'Pasta', 'Risotto'],
+//   openingHours,
+//   order: function (starterIndex, mainIndex) {
+//     return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
+//   },
+
+//   orderDelivery({
+//     starterIndex = 1,
+//     mainIndex = 0,
+//     time = 'no specific time',
+//     address,
+//   }) {
+//     console.log(
+//       `Order received! They have ordered ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} and want it delivered to ${address} at ${time}.`
+//     );
+//   },
+
+//   orderPasta(ing1, ing2, ing3) {
+//     console.log(
+//       `Here is your delicious pastas with ${ing1}, ${ing2}, and ${ing3}`
+//     );
+//   },
+
+//   orderPizza(mainIngredient, ...otherIngredients) {
+//     console.log(mainIngredient);
+//     console.log(...otherIngredients);
+//   },
+// };
+
+// const airline = 'TAP Air Portugal';
+// // const plane = 'A320';
+// const passenger = 'dOmIniC sPIezIo';
+// let passengerLower = passenger.toLowerCase();
+
+// const priceGB = '288,97£';
+
+// let priceUS = priceGB.replace('£', '$').replace(',', '.');
+// // priceUS[0] = priceUS.slice(-1);
+// console.log(priceGB, priceUS);
+
+// const announcement = `All passengers come to boarding door 23. Boarding door 23!`;
+
+// console.log(announcement.replace('door', 'gate').replace('door', 'gate'));
+
+// console.log(announcement.replace(/door/g, 'gate'));
+
+// const plane = 'Airbus A320neo';
+// console.log(plane.includes('A320'));
+// console.log(plane.startsWith('B'));
+
+// if (plane.startsWith('Airbus') && plane.endsWith('neo')) {
+//   console.log(`Part of the new Airbus family`);
+// }
+
+// const checkBaggage = function (items) {
+//   let baggage = items.toLowerCase();
+//   if (baggage.includes('gun') || baggage.includes('knife')) {
+//     console.log(`You are not allowed to fly`);
+//   } else {
+//     console.log(`Welcome aboard`);
+//   }
+// };
+// checkBaggage(`I have a laptop, some food, and a pocket knife`);
+// checkBaggage(`Socks and a camera`);
+// checkBaggage(`Got some snacks and a gun for protection`);
+// console.log(airline.toLowerCase());
+// console.log(airline.toUpperCase());
+// console.log(fixName('dOmIniC sPIezIo'));
+
+// const checkEmail = function () {
+//   const loginPrompt = prompt(`What is your email? `).toLowerCase().trim();
+//   const email = 'dspiezio@gmail.com';
+//   if (email === loginPrompt) {
+//     return `Correct email entered`;
+//   } else {
+//     return `Please enter the correct email`;
+//   }
+// };
+
+// // console.log(checkEmail());
+
+// function fixName(name) {
+//   passengerLower = name.toLowerCase();
+//   let passengerCorrect =
+//     passengerLower[0].toUpperCase() +
+//     passengerLower.slice(1, passengerLower.indexOf(' ') + 1) +
+//     passengerLower[passengerLower.indexOf(' ') + 1].toUpperCase() +
+//     passengerLower.slice(passengerLower.indexOf(' ') + 2);
+//   return passengerCorrect;
+// }
+
+// const email = 'dspiezio@gmail.com';
+// const loginEmail = '   DspiEZiO@GmAil.com  \n';
+// //
+// const lowerEmail = loginEmail.toLowerCase().trim();
+// // const trimmedEmail = lowerEmail.trim();
+// console.log(lowerEmail);
+
+// console.log(plane[0]);
+
+// console.log(plane.length);
+// console.log(airline.indexOf('r'));
+// console.log(airline.lastIndexOf('r'));
+// console.log(airline.indexOf('Portugal'));
+
+// console.log(airline.slice(4, 7));
+// console.log(airline.slice(0, airline.indexOf(' ')));
+// console.log(airline.slice(airline.lastIndexOf(' ') + 1));
+
+// console.log(airline.slice(-2));
+
+// const checkMiddleSeat = function (seat) {
+//   // B and E are middle seats
+//   const seatLetter = seat.slice(-1);
+//   if (seatLetter === 'B' || seatLetter === 'E') {
+//     return 'You have a middle seat';
+//   } else {
+//     return `You do not have a middle seat`;
+//   }
+// };
+
+// console.log(checkMiddleSeat('11B'));
+// console.log(checkMiddleSeat('23C'));
+// console.log(checkMiddleSeat('3E'));
+// console.log(checkMiddleSeat('24B'));
 // const orderSet = new Set([
 //   'pasta',
 //   'pizza',

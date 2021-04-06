@@ -91,34 +91,34 @@
 
 // greet('hello')('dominic');
 
-const lufthansa = {
-  airline: 'Lufthansa',
-  iataCode: 'LH',
-  bookings: [],
-  book(flightNum, name) {
-    console.log(
-      `${name} booked a seat on ${this.airline} flight ${this.iataCode}${flightNum}`
-    );
-    this.bookings.push({ flight: `${this.iataCode}${flightNum}`, name });
-  },
-};
+// const lufthansa = {
+//   airline: 'Lufthansa',
+//   iataCode: 'LH',
+//   bookings: [],
+//   book(flightNum, name) {
+//     console.log(
+//       `${name} booked a seat on ${this.airline} flight ${this.iataCode}${flightNum}`
+//     );
+//     this.bookings.push({ flight: `${this.iataCode}${flightNum}`, name });
+//   },
+// };
 
-const book = lufthansa.book;
+// const book = lufthansa.book;
 
-lufthansa.book(131, 'Dominic Spiezio');
-lufthansa.book(635, 'John Smith');
+// lufthansa.book(131, 'Dominic Spiezio');
+// lufthansa.book(635, 'John Smith');
 
-const eurowings = {
-  airline: 'Eurowings',
-  iataCode: 'EW',
-  bookings: [],
-};
+// const eurowings = {
+//   airline: 'Eurowings',
+//   iataCode: 'EW',
+//   bookings: [],
+// };
 
-const swiss = {
-  airline: 'Swiss Air Lines',
-  iataCode: 'LX',
-  bookings: [],
-};
+// const swiss = {
+//   airline: 'Swiss Air Lines',
+//   iataCode: 'LX',
+//   bookings: [],
+// };
 
 // book.call(lufthansa, 255, 'Sarah Connor');
 // book.call(eurowings, 255, 'Sarah Connor');
@@ -149,23 +149,91 @@ const swiss = {
 //   .querySelector('.buy')
 //   .addEventListener('click', lufthansa.buyPlane.bind(lufthansa));
 
-const addTax = (rate, value) => (value + value * rate).toFixed(2);
+// const addTax = (rate, value) => (value + value * rate).toFixed(2);
 
-console.log(addTax(0.075, 59.99));
+// console.log(addTax(0.075, 59.99));
 
-const addVAT = addTax.bind(null, 0.23);
+// const addVAT = addTax.bind(null, 0.23);
 
-console.log(addVAT(99.99));
+// console.log(addVAT(99.99));
 
-// const doVat = addVAT => addTax => (value + value * rate).toFixed(2);
+// // const doVat = addVAT => addTax => (value + value * rate).toFixed(2);
 
-// console.log(doVat(0.075, 9.99));
+// // console.log(doVat(0.075, 9.99));
 
-const addTaxRate = function (rate) {
-  return function (value) {
-    return (value + value * rate).toFixed(2);
-  };
-};
+// const addTaxRate = function (rate) {
+//   return function (value) {
+//     return (value + value * rate).toFixed(2);
+//   };
+// };
 
-const addVat2 = addTaxRate(0.075);
-console.log(addVat2(59.99));
+// const addVat2 = addTaxRate(0.075);
+// console.log(addVat2(59.99));
+
+// const runOnce = function () {
+//   console.log(`This will never run again!`);
+// };
+
+// runOnce();
+
+// (function () {
+//   console.log(`This will never run again!`);
+//   const isPrivate = 23;
+// })();
+
+// {
+//   const isPrivate = 23;
+//   let isNotPrivate = 64;
+// }
+// console.log(isNotPrivate);
+// console.log(isPrivate);
+
+// const secureBooking = function () {
+//   let passengerCount = 0;
+//   return function () {
+//     passengerCount++;
+//     console.log(`${passengerCount} passengers`);
+//   };
+// };
+
+// const booker = secureBooking();
+
+// booker();
+// booker();
+// booker();
+// booker();
+// booker();
+
+// console.dir(booker);
+
+// let f;
+
+// const g = function () {
+//   const a = 23;
+//   f = function () {
+//     console.log(a * 2);
+//   };
+// };
+
+// const h = function () {
+//   const b = 777;
+//   f = function () {
+//     console.log(b * 2);
+//   };
+// };
+
+// g();
+// f();
+// h();
+// f();
+
+// const boardPassengers = function (n, wait) {
+//   const perGroup = n / 3;
+//   setTimeout(function () {
+//     console.log(`We are now boarding all ${n} passengers`);
+//     console.log(`There are 3 groups, each with ${perGroup} passengers`);
+//   }, wait * 1000);
+//   console.log(`Will start boarding in ${wait} seconds`);
+// };
+
+// boardPassengers(180, 3);

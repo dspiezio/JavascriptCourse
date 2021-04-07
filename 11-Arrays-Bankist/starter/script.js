@@ -33,7 +33,14 @@ const account4 = {
   pin: 4444,
 };
 
-const accounts = [account1, account2, account3, account4];
+const account5 = {
+  owner: 'Dominic Spiezio',
+  movements: [-2900, 1000, 1000, -180, 1800],
+  interestRate: 1.75,
+  pin: 5555,
+};
+
+const accounts = [account1, account2, account3, account4, account5];
 
 // Elements
 const labelWelcome = document.querySelector('.welcome');
@@ -74,3 +81,48 @@ const currencies = new Map([
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
+
+// let arr = ['a', 'b', 'c', 'd', 'e'];
+
+// // console.log(arr.slice(2));
+// // console.log(arr.slice(2, 4));
+// // console.log(arr.slice(-2));
+// // console.log(arr.slice(1, -2));
+// // console.log(arr.slice());
+// // console.log([...arr]);
+// const arr2 = [...arr];
+// console.log(arr2.reverse());
+// // console.log(arr.splice(2));
+// // arr.splice(-1);
+// // console.log(arr);
+
+// const letters = arr.concat(arr2);
+// console.log(letters);
+
+// console.log(letters.join('-'));
+
+// for (const [i, movement] of movements.entries()) {
+//   if (movement > 0) {
+//     console.log(`${i + 1}: You deposited ${movement}`);
+//   } else {
+//     console.log(`${i + 1}: You withdrew ${Math.abs(movement)}`);
+//   }
+// }
+// console.log('');
+// movements.forEach(function (movement, i) {
+//   if (movement > 0) {
+//     console.log(`${i + 1}: You deposited ${movement}`);
+//   } else {
+//     console.log(`${i + 1}: You withdrew ${Math.abs(movement)}`);
+//   }
+// });
+
+// currencies.forEach(function (val, i, m) {
+//   console.log(`${i}: ${val}`);
+// });
+
+// const currenciesUnique = new Set(['USD', 'EUR', 'EUR', 'GPB', 'USD']);
+
+// currenciesUnique.forEach(function (v) {
+//   console.log(v);
+// });

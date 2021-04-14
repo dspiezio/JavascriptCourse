@@ -81,12 +81,7 @@ btnLogin.addEventListener('click', function (event) {
     containerApp.style.opacity = 100;
     inputLoginUsername.value = inputLoginPin.value = ' ';
     inputLoginPin.blur();
-    displayMovements(currentUser.movements);
-    calcDisplayTotals(
-      currentUser,
-      currentUser.movements,
-      currentUser.interestRate
-    );
+    updateUI(currentUser, currentUser.movements, currentUser.interestRate);
   } else {
     containerApp.style.opacity = 0;
   }
@@ -95,18 +90,43 @@ btnLogin.addEventListener('click', function (event) {
 btnTransfer.addEventListener('click', function (event) {
   event.preventDefault();
   const amount = Number(inputTransferAmount.value);
-  const receiverAccount = accounts.find(acc => acc === inputTransferTo.value);
-
+  const receiverAcc = accounts.find(
+    acc => acc.username === inputTransferTo.value
+  );
   if (
     amount > 0 &&
+    receiverAcc &&
     currentUser.balance >= amount &&
-    receiverAccount?.username !== currentUser.username
+    receiverAcc?.username !== currentUser.username
   ) {
-    console.log(`transfer`);
+    currentUser.movements.push(-amount);
+    receiverAcc.movements.push(amount);
+    updateUI(currentUser, currentUser.movements, currentUser.interestRate);
   }
+  inputTransferAmount.value = inputTransferTo.value = '';
+});
+
+// Close account
+btnClose.addEventListener('click', function (event) {
+  event.preventDefault();
+  if (
+    currentUser.pin === Number(inputClosePin.value) &&
+    inputCloseUsername.value === currentUser.username
+  ) {
+    const index = accounts.findIndex(
+      acc => acc.username === currentUser.username
+    );
+    accounts.splice(index, 1);
+    containerApp.style.opacity = 0;
+    labelWelcome.textContent = 'Log in to get started';
+  }
+  inputClosePin.value = inputCloseUsername.value = '';
 });
 // Functions
-
+const updateUI = function (acc, movement, intRate) {
+  displayMovements(movement);
+  calcDisplayTotals(acc, movement, intRate);
+};
 const displayMovements = function (movements) {
   movements.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
@@ -162,7 +182,6 @@ const createUsernames = function (accs) {
 // Function Calls
 createUsernames(accounts);
 
-// console.log(accounts);
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -173,10 +192,4 @@ const currencies = new Map([
   ['GBP', 'Pound sterling'],
 ]);
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
-
 /////////////////////////////////////////////////
-
-const deposits = movements.filter(mov => mov > 0);
-
-const withdrawals = movements.filter(mov => mov < 0);

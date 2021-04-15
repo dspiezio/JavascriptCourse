@@ -137,10 +137,12 @@ btnLoan.addEventListener('click', function (event) {
   inputLoanAmount.value = '';
 });
 // Sort
+let sorted = false;
 btnSort.addEventListener('click', function (event) {
   event.preventDefault();
-  currentUser.movements.sort((a, b) => a - b);
-  updateUI(currentUser);
+
+  displayMovements(currentUser, !sorted);
+  sorted = !sorted;
 });
 // Functions
 // Update UI
@@ -151,19 +153,20 @@ const updateUI = function (currentUser) {
 // Display Movements
 const displayMovements = function (currentUser, sort = false) {
   const movs = sort
-    ? movements.sort()
-    : currentUser.movements.forEach(function (mov, i) {
-        const type = mov > 0 ? 'deposit' : 'withdrawal';
-        const html = `
+    ? currentUser.movements.slice().sort((a, b) => a - b)
+    : currentUser.movements;
+  movs.forEach(function (mov, i) {
+    const type = mov > 0 ? 'deposit' : 'withdrawal';
+    const html = `
     <div class="movements__row">
       <div class="movements__type movements__type--${type}">${
-          i + 1
-        } ${type}</div>
+      i + 1
+    } ${type}</div>
       <div class="movements__value">${mov}</div>
     </div>
     `;
-        containerMovements.insertAdjacentHTML('afterbegin', html);
-      });
+    containerMovements.insertAdjacentHTML('afterbegin', html);
+  });
 };
 // Update totals
 const calcDisplayTotals = function (currentUser) {

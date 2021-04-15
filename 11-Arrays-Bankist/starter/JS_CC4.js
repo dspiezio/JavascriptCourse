@@ -26,3 +26,20 @@ const dogs = [
   { weight: 13, curFood: 275, owners: ['Sarah', 'John'] },
   { weight: 32, curFood: 340, owners: ['Michael'] },
 ];
+
+dogs.forEach(
+  dog => (dog.recFood = Number((dog.weight ** 0.75 * 28).toFixed()))
+);
+console.log(dogs);
+
+const dogSarah = dogs.find(dog => dog.owners.includes('Sarah'));
+console.log(dogSarah);
+console.log(
+  `Sarah's dog is eating ${
+    dogSarah.curFood > dogSarah.recFood ? 'too much' : 'too little'
+  }`
+);
+
+const dogsEat = function(dogs){
+  const dogEats =
+}

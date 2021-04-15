@@ -175,3 +175,68 @@ const accounts = [account1, account2, account3, account4, account5];
 
 // const movedDecShort = movements.sort((a, b) => b - a);
 // console.log(movedDecShort);
+
+// const x = new Array(7);
+// x.fill(1);
+// // x.fill(1, 2, 5);
+// console.log(x);
+
+// const y = Array.from({ length: 7 }, () => 1);
+// console.log(y);
+
+// const z = Array.from({ length: 7 }, (_, i) => i + 1);
+// console.log(z);
+
+// const dice = Array.from({ length: 100 }, (_, i) =>
+//   Number((Math.random() * 20 + 1).toFixed())
+// );
+// console.log(dice);
+
+// const movementsUI = Array.from(document.querySelectorAll('.movements__value'));
+
+// console.log(movementsUI.map(el => el.textContent.replace('€', '')));
+
+// const bankDepositSum = accounts
+//   .flatMap(acc => acc.movements)
+//   .filter(mov => mov > 0)
+//   .reduce((accu, mov) => accu + mov, 0);
+
+// console.log(bankDepositSum);
+
+// const numDeposits1000 = accounts
+//   .flatMap(acc => acc.movements)
+//   .filter(mov => mov >= 1000).length;
+// console.log(numDeposits1000);
+
+// const numDeposits1000Reduce = accounts
+//   .flatMap(acc => acc.movements)
+//   .reduce((accu, mov) => (mov >= 1000 ? ++accu : accu), 0);
+// console.log(numDeposits1000Reduce);
+
+// const sums = accounts
+//   .flatMap(acc => acc.movements)
+//   .reduce(
+//     (accu, mov) => {
+//       // mov > 0 ? (accu.deposits += mov) : (accu.withdrawals += mov);
+//       accu[mov > 0 ? 'deposits' : 'withdrawals'] += mov;
+//       return accu;
+//     },
+//     { deposits: 0, withdrawals: 0 }
+//   );
+
+// console.log(sums);
+
+const convertTitleCase = function (title) {
+  const capitalize = str => str[0].toUpperCase() + str.slice(1);
+  const exceptions = ['a', 'an', 'the', 'and', 'but', 'or', 'on', 'in', 'with'];
+  const titleCase = title
+    .toLowerCase()
+    .split(' ')
+    .map(word => (!exceptions.includes(word) ? capitalize(word) : word))
+    .join(' ');
+
+  return capitalize(titleCase);
+};
+console.log(convertTitleCase('this is a nice title'));
+console.log(convertTitleCase('this is a LONG title but not too long'));
+console.log(convertTitleCase('and this is another title with an EXAMPLE'));

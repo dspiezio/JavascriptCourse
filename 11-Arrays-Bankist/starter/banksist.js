@@ -81,7 +81,7 @@ btnLogin.addEventListener('click', function (event) {
     containerApp.style.opacity = 100;
     inputLoginUsername.value = inputLoginPin.value = ' ';
     inputLoginPin.blur();
-    updateUI(currentUser, currentUser.movements, currentUser.interestRate);
+    updateUI(currentUser);
   } else {
     containerApp.style.opacity = 0;
   }
@@ -101,11 +101,10 @@ btnTransfer.addEventListener('click', function (event) {
   ) {
     currentUser.movements.push(-amount);
     receiverAcc.movements.push(amount);
-    updateUI(currentUser, currentUser.movements, currentUser.interestRate);
+    updateUI(currentUser);
   }
   inputTransferAmount.value = inputTransferTo.value = '';
 });
-
 // Close account
 btnClose.addEventListener('click', function (event) {
   event.preventDefault();
@@ -122,53 +121,78 @@ btnClose.addEventListener('click', function (event) {
   }
   inputClosePin.value = inputCloseUsername.value = '';
 });
+// Request loan
+btnLoan.addEventListener('click', function (event) {
+  event.preventDefault();
+  const amount = Number(inputLoanAmount.value);
+  if (
+    amount > 0 &&
+    amount < currentUser.balance &&
+    amount < 10000 &&
+    currentUser.movements.some(mov => mov >= amount * 0.1)
+  ) {
+    currentUser.movements.push(amount);
+    updateUI(currentUser);
+  }
+  inputLoanAmount.value = '';
+});
+// Sort
+btnSort.addEventListener('click', function (event) {
+  event.preventDefault();
+  currentUser.movements.sort((a, b) => a - b);
+  updateUI(currentUser);
+});
 // Functions
-const updateUI = function (acc, movement, intRate) {
-  displayMovements(movement);
-  calcDisplayTotals(acc, movement, intRate);
+// Update UI
+const updateUI = function (currentUser) {
+  displayMovements(currentUser);
+  calcDisplayTotals(currentUser);
 };
-const displayMovements = function (movements) {
-  movements.forEach(function (mov, i) {
-    const type = mov > 0 ? 'deposit' : 'withdrawal';
-    const html = `
+// Display Movements
+const displayMovements = function (currentUser, sort = false) {
+  const movs = sort
+    ? movements.sort()
+    : currentUser.movements.forEach(function (mov, i) {
+        const type = mov > 0 ? 'deposit' : 'withdrawal';
+        const html = `
     <div class="movements__row">
       <div class="movements__type movements__type--${type}">${
-      i + 1
-    } ${type}</div>
+          i + 1
+        } ${type}</div>
       <div class="movements__value">${mov}</div>
     </div>
     `;
-    containerMovements.insertAdjacentHTML('afterbegin', html);
-  });
+        containerMovements.insertAdjacentHTML('afterbegin', html);
+      });
 };
-
-const calcDisplayTotals = function (acc, movement, intRate) {
+// Update totals
+const calcDisplayTotals = function (currentUser) {
   // Total Balance
-  const balance = movement.reduce((accum, cur) => accum + cur, 0);
-  acc.balance = balance;
+  const balance = currentUser.movements.reduce((accum, cur) => accum + cur, 0);
+  currentUser.balance = balance;
   labelBalance.textContent = `${balance} €`;
   // Total deposits
-  const depositsTotal = movement
+  const depositsTotal = currentUser.movements
     .filter(mov => mov > 0)
     .reduce((sum, mov) => sum + mov, 0);
 
   labelSumIn.textContent = `${depositsTotal.toFixed(2)} €`;
   // Total withdrawels
-  const withdrawalTotal = movement
+  const withdrawalTotal = currentUser.movements
     .filter(mov => mov < 0)
     .reduce((sum, mov) => sum + mov, 0);
   labelSumOut.textContent = `${Math.abs(withdrawalTotal).toFixed(2)} €`;
   // Total interest
-  const interest = movement
+  const interest = currentUser.movements
     .filter(mov => mov > 0)
-    .map(deposit => (deposit * intRate) / 100)
-    .filter((int, i, arr) => {
+    .map(deposit => (deposit * currentUser.interestRate) / 100)
+    .filter(int => {
       return int >= 1;
     })
     .reduce((sum, mov) => sum + mov, 0);
   labelSumInterest.textContent = `${interest.toFixed(2)} €`;
 };
-
+// Create usernames
 const createUsernames = function (accs) {
   accs.forEach(function (acc) {
     acc.username = acc.owner
@@ -193,3 +217,5 @@ const currencies = new Map([
 ]);
 
 /////////////////////////////////////////////////
+
+//

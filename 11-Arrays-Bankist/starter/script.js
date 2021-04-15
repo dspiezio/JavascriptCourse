@@ -117,8 +117,61 @@ const accounts = [account1, account2, account3, account4, account5];
 
 // movements;
 
-const firstWithdrawal = movements.find(mov => mov < 0);
-console.log(firstWithdrawal);
+// const firstWithdrawal = movements.find(mov => mov < 0);
+// console.log(firstWithdrawal);
 
-const account = accounts.find(acc => acc.owner === 'Dominic Spiezio');
-console.log(account);
+// const account = accounts.find(acc => acc.owner === 'Dominic Spiezio');
+// console.log(account);
+
+// console.log(movements);
+// console.log(movements.includes(-130));
+
+// const anyDeposits = movements.some(mov => mov > 5000);
+// console.log(anyDeposits);
+
+// // const onlyDeposits = movements.every(mov => mov > 0);
+
+// const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
+// console.log(arr.flat());
+
+// const arrDeep = [[[1, 2], 3], [4, [5, 6]], 7, 8];
+
+// console.log(arrDeep.flat());
+// console.log(arrDeep.flat(2));
+// // console.log(arrDeep.flatMap());
+// const accountsBalance = accounts.map(acc => acc.movements);
+// console.log(accountsBalance);
+// const acccountFlat = accountsBalance.flat();
+// console.log(acccountFlat);
+// const accountBalCombined = acccountFlat.reduce((acc, mov) => acc + mov, 0);
+// console.log(accountBalCombined);
+// const accountChanged = accounts
+//   .map(acc => acc.movements)
+//   .flat()
+//   .reduce((acc, mov) => acc + mov, 0);
+// console.log(accountChanged);
+
+// const owners = ['Jonas', 'Zach', 'Adam', 'Martha', 'Dominic'];
+// const ownersSort = owners.sort();
+// console.log(ownersSort);
+
+// const move = movements.sort();
+// console.log(move);
+
+// const movedAcc = movements.sort((a, b) => {
+//   if (a > b) return 1;
+//   if (b > a) return -1;
+// });
+// console.log(movedAcc);
+
+// const movedDec = movements.sort((a, b) => {
+//   if (a > b) return -1;
+//   if (b > a) return 1;
+// });
+// console.log(movedDec);
+
+// const movedAccShort = movements.sort((a, b) => a - b);
+// console.log(movedAccShort);
+
+// const movedDecShort = movements.sort((a, b) => b - a);
+// console.log(movedDecShort);

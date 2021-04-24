@@ -143,15 +143,43 @@
 // console.log(Date.now());
 // future.setFullYear(2040);
 // console.log(future);
-const future = new Date(2037, 10, 19, 15, 23);
+// const future = new Date(2037, 10, 19, 15, 23);
 
-console.log(+future);
+// console.log(+future);
 
-const calcDaysPassed = (date1, date2) =>
-  Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
+// const calcDaysPassed = (date1, date2) =>
+//   Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
 
-const days1 = calcDaysPassed(
-  new Date(2021, 4, 16, 10, 8),
-  new Date(2021, 4, 20)
-);
-console.log(days1);
+// const days1 = calcDaysPassed(
+//   new Date(2021, 4, 16, 10, 8),
+//   new Date(2021, 4, 20)
+// );
+// console.log(days1);
+// const options = {
+//   style: 'currency',
+//   currency: 'EUR',
+// };
+// const num = 38884764.23;
+// console.log(new Intl.NumberFormat('en-US', options).format(num));
+// console.log(new Intl.NumberFormat('de-DE', options).format(num));
+// console.log(new Intl.NumberFormat(navigator.language, options).format(num));
+// const ingredients = ['ham', 'cheese'];
+// const pizzaTimer = setTimeout(
+//   (ing1, ing2) => console.log(`Pizza is here with ${ing1} and ${ing2}`),
+//   5000,
+//   ...ingredients
+// );
+// console.log(`Waiting for pizza`);
+
+// if (ingredients.includes('pineapple')) clearTimeout(pizzaTimer);
+
+setInterval(function () {
+  const now = new Date();
+  console.log(
+    now.toLocaleTimeString(navigator.language, {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+    })
+  );
+}, 1000);

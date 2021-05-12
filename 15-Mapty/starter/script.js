@@ -11,7 +11,7 @@ const inputElevation = document.querySelector('.form__input--elevation');
 class Workout {
   date = new Date();
   id = (Date.now() + '').slice(-10);
-  clicks = 0;
+  // clicks = 0;
 
   constructor(coords, distance, duration) {
     this.coords = coords; // [lat, lng]
@@ -28,9 +28,9 @@ class Workout {
     } ${this.date.getDate()}`;
   }
 
-  click() {
-    this.clicks++;
-  }
+  // click() {
+  //   this.clicks++;
+  // }
 }
 
 class Running extends Workout {
@@ -81,6 +81,7 @@ class App {
     // Show/hide elevation/cadence on type change
     inputType.addEventListener('change', this._toggleElevationField);
     containerWorkouts.addEventListener('click', this._moveToPopup.bind(this));
+    this._getLocalStorage();
   }
   _getPosition() {
     if (navigator.geolocation) {
@@ -105,6 +106,8 @@ class App {
     }).addTo(this.#map);
 
     this.#map.on('click', this._showForm.bind(this));
+
+    this.#workouts.forEach(work => this._renderWorkoutMarker(work));
   }
   _showForm(mapE) {
     this.#mapEvent = mapE;
@@ -113,8 +116,11 @@ class App {
   }
 
   _hideForm() {
-    inputDistance.value = inputDuration.value = inputCadence.value = inputElevation.value =
-      '';
+    inputDistance.value =
+      inputDuration.value =
+      inputCadence.value =
+      inputElevation.value =
+        '';
     form.style.display = 'none';
     form.classList.add('hidden');
     setTimeout(() => (form.style.display = 'grid'), 1000);
@@ -167,6 +173,8 @@ class App {
     this._renderWorkout(workout);
 
     this._hideForm();
+
+    this._setLocalStorage();
   }
 
   _renderWorkoutMarker(workout) {
@@ -251,7 +259,21 @@ class App {
         duration: 1,
       },
     });
-    workout.click();
+    // workout.click();
+  }
+  _setLocalStorage() {
+    localStorage.setItem('workouts', JSON.stringify(this.#workouts));
+  }
+  _getLocalStorage() {
+    const data = JSON.parse(localStorage.getItem('workouts'));
+    if (!data) return;
+
+    this.#workouts = data;
+    this.#workouts.forEach(work => this._renderWorkout(work));
+  }
+  reset() {
+    localStorage.removeItem('workouts');
+    location.reload();
   }
 }
 

@@ -51,19 +51,19 @@
 //     console.log(`${quantity} ${product} added to cart`);
 //   };
 
-// import cloneDeep from './node_modules/lodash-es/cloneDeep.js';
+import cloneDeep from './node_modules/lodash-es/cloneDeep.js';
 
-// const state = {
-//   cart: [
-//     { product: 'bread', quantity: 5 },
-//     { product: 'pizza', quantity: 2 },
-//   ],
-//   user: { loggedIn: true },
-// };
+const state = {
+  cart: [
+    { product: 'bread', quantity: 5 },
+    { product: 'pizza', quantity: 2 },
+  ],
+  user: { loggedIn: true },
+};
 
-// const stateClone = Object.assign({}, state);
-// state.user.loggedIn = false;
-// console.log(stateClone);
+const stateClone = Object.assign({}, state);
+state.user.loggedIn = false;
+console.log(stateClone);
 
-// const stateDeepClone = cloneDeep(state);
-// console.log(stateDeepClone);
+const stateDeepClone = cloneDeep(state);
+console.log(stateDeepClone);

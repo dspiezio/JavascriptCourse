@@ -1,0 +1,29 @@
+var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+_parcelHelpers.defineInteropFlag(exports);
+_parcelHelpers.export(exports, "state", function () {
+  return state;
+});
+_parcelHelpers.export(exports, "getSearchResultsPage", function () {
+  return getSearchResultsPage;
+});
+require('regenerator-runtime');
+var _configJs = require('./config.js');
+require('./helpers.js');
+const state = {
+  recipe: {},
+  search: {
+    query: '',
+    results: [],
+    page: 1,
+    resultsPerPage: _configJs.RES_PER_PAGE
+  },
+  bookmarks: []
+};
+const getSearchResultsPage = function (page = state.search.page) {
+  state.search.page = page;
+  const start = (page - 1) * state.search.resultsPerPage;
+  // 0
+  const end = page * state.search.resultsPerPage;
+  // 9
+  return state.search.results.slice(start, end);
+};
